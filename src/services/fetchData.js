@@ -1,12 +1,13 @@
 const API = import.meta.env.VITE_MAIN_API;
 
 export const postMeeting = async (endpoint, meetingData, token, options = {}) => {
+    console.log(`Token : ${token}`);
     try {
         const response = await fetch(`${API}${endpoint}`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                Authorization: `Bearer ${token}`
+                'Authorization': `Bearer ${token}`
             },
             body: JSON.stringify(meetingData),
             ...options

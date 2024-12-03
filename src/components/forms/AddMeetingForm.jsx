@@ -53,7 +53,7 @@ const AddMeetingForm = () => {
         e.preventDefault();
 
         try {
-            const data = await addMeeting(meetingData);
+            const data = await addMeeting(meetingData, token);
 
             console.log(data);
         } catch (err) {
