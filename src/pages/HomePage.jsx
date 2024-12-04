@@ -1,4 +1,5 @@
 import Navigation from '../components/NavigationBar.jsx';
+import LogoutButton from '../components/LogoutButton.jsx';
 
 const HomePage = () => {
     return (
@@ -13,6 +14,8 @@ const HomePage = () => {
                 <div className="home_container">
                     <Navigation />
                 </div>
+
+                <LogoutButton />
             </section>
         </>
     )

@@ -55,15 +55,32 @@ export const useAuth = () => {
         }
     };
 
-    const logout = () => {
-        setToken('');
-        setUID('');
-        setUsername('');
-        setLocation('');
-        localStorage.removeItem('token');
-        localStorage.removeItem('uID');
-        localStorage.removeItem('username');
-        localStorage.removeItem('location');
+    const logout = async () => {
+        console.log('Logging out...');
+        const response = await fetch(`${API}/logout`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${token}`
+            }
+        });
+
+        if (response.ok) {
+            console.log("Logged out successfully");
+
+            setToken('');
+            setUID('');
+            setUsername('');
+            setLocation('');
+            localStorage.removeItem('token');
+            localStorage.removeItem('uID');
+            localStorage.removeItem('username');
+            localStorage.removeItem('location');
+        } else {
+            const err = await response.json();
+            
+            console.error("Failed to logout: ", err);
+        }
     };
 
     return { token, uID, username, location, login, register, logout };
