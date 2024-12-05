@@ -1,10 +1,10 @@
 import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
-import { allMeetings } from "../services/apiService.js";
-import ReturnButton from '../components/ReturnButton.jsx'; 
+import { allMeetings } from "../../services/apiService.js";
+import ReturnButton from '../../components/ReturnButton.jsx'; 
 import { useState, useEffect } from "react";
-import { useAuth } from "../hooks/useAuth.jsx";
-import Meeting from "../components/props/Meeting.jsx";
+import { useAuth } from "../../hooks/useAuth.jsx";
+import Meeting from "../../components/props/Meeting.jsx";
 
 const AllMeetingsPage = ({ backTo }) => {
     const { uID, token } = useAuth();

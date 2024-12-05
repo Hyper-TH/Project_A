@@ -1,6 +1,6 @@
 import { Routes, Route } from 'react-router-dom';
 import * as Pages from './RouteImports.js';
-import ProtectedRoute from './components/auth/ProtectedRoute.jsx';
+import ProtectedRoute from './ProtectedRoute.jsx';
 
 const AppRoutes = () => (
     <Routes>
@@ -22,6 +22,11 @@ const AppRoutes = () => (
         <Route
             path="/allMeetings"
             element={<ProtectedRoute element={<Pages.AllMeetingsPage backTo="/home" />} />}
+        />
+        
+        <Route
+            path="/registerMeeting"
+            element={<ProtectedRoute element={<Pages.RegisterMeeting backTo="/home"/>} />}
         />
 
         <Route

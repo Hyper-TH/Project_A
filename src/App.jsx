@@ -1,5 +1,5 @@
 import './App.css'
-import AppRoutes from './AppRoutes.jsx'
+import AppRoutes from './redirects/AppRoutes'
 function App() {
     return (
         <>
