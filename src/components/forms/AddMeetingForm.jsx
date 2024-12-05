@@ -3,7 +3,7 @@ import { useAuth } from '../../context/AuthContext';
 import Error from '../props/Error';
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
-import { addMeeting } from '../../services/apiService.js';
+import { createMeeting } from '../../services/apiService.js';
 
 const AddMeetingForm = () => {
     const { uID, token } = useAuth();
@@ -53,7 +53,7 @@ const AddMeetingForm = () => {
         e.preventDefault();
 
         try {
-            const data = await addMeeting(meetingData, token);
+            const data = await createMeeting(meetingData, token);
 
             console.log(data);
         } catch (err) {
