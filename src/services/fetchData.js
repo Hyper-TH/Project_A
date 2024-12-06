@@ -70,3 +70,27 @@ export const postMeeting = async (endpoint, meetingData, token, options = {}) =>
         throw err;
     }
 }
+
+export const putAttendees = async (endpoint, token, options = {}) => {
+    try {
+        console.log(token);
+        const response = await fetch(`${API}${endpoint}`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            },
+            ...options
+        });
+
+        if (!response.ok) {
+            throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+
+        return await response.json();
+    } catch (err) {
+        console.error(`Error posting data to ${API}${endpoint}`, err);
+
+        throw err;
+    }
+}

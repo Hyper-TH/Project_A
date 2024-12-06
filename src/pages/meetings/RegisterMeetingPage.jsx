@@ -1,4 +1,3 @@
-// TODO: Register to a meeting using its UID
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import ReturnButton from "../../components/ReturnButton";

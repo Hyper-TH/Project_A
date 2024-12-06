@@ -11,3 +11,7 @@ export const attendMeeting = async (uid, mid, token) => {
 export const createMeeting = async (meetingData, token) => {
     return Data.postMeeting(`/meeting`, meetingData, token);
 }
+
+export const unregisterMeeting = async (uid, mid, token) => {
+    return Data.putAttendees(`/unregister/${uid}/${mid}`, token);
+}
