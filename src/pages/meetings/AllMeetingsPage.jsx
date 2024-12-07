@@ -4,11 +4,13 @@ import { allMeetings, unregisterMeeting, removeMeeting } from "../../services/ap
 import ReturnButton from '../../components/ReturnButton.jsx'; 
 import { useState, useEffect } from "react";
 import { useAuth } from "../../hooks/useAuth.jsx";
+import { useTimezone } from "../../hooks/useTimezone.jsx";
 import Error from "../../components/props/Error";
 import Meeting from "../../components/props/Meeting.jsx";
 
 const AllMeetingsPage = ({ backTo }) => {
     const { uID, token } = useAuth();
+    const { timezone } = useTimezone();
     const [meetingsData, setMeetingsData] = useState([]);
     const [error, setError] = useState(null);
 
@@ -53,7 +55,7 @@ const AllMeetingsPage = ({ backTo }) => {
     return (
         <>
             <h1>All your meetings</h1>
-            
+            <h2>Your timezone (UTC): {timezone}</h2>
             <Link to={backTo}>
                 <ReturnButton />
             </Link>

@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
-import { useAuth } from '../../context/AuthContext';
+import { useAuth } from '../../hooks/useAuth.jsx';
+import { useTimezone } from '../../hooks/useTimezone.jsx';
 import Error from '../props/Error';
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
@@ -7,6 +8,7 @@ import { createMeeting } from '../../services/apiService.js';
 
 const AddMeetingForm = () => {
     const { uID, token } = useAuth();
+    const { timezone } = useTimezone();
     const [error, setError] = useState(null);
     const [date, setDate] = useState(new Date());
     const [darkMode, setDarkMode] = useState(false);
@@ -23,10 +25,10 @@ const AddMeetingForm = () => {
             setMeetingData((prevData) => ({
                 ...prevData,
                 Organizer: uID,
+                Timezone: timezone,
             }));
         }
-    }, [uID, token]);
-
+    }, [uID, timezone, token]);
 
     const handleChange = async (e) => {
         const { name, value } = e.target;
@@ -93,18 +95,6 @@ const AddMeetingForm = () => {
                                     name="Description"
                                     placeholder="Description of meeting"
                                     value={meetingData.Description}
-                                    onChange={handleChange}
-                                    required
-                                />
-                            </div>
-
-                            <div>
-                                <label>Timezone</label>
-                                <input
-                                    type="text"
-                                    name="Timezone"
-                                    placeholder="Input Timezone here"
-                                    value={meetingData.Timezone}
                                     onChange={handleChange}
                                     required
                                 />
