@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 
-const Meeting = ({ mid, name, organizer, description, date, timezone, uid, unregister, token }) => {
+const Meeting = ({ mid, name, organizer, description, date, timezone, uid, unregister, deleteMeeting, token }) => {
     return (
         <>
             <div className="meeting-card" id={mid}>
@@ -10,7 +10,11 @@ const Meeting = ({ mid, name, organizer, description, date, timezone, uid, unreg
                 <p><strong>Date: </strong> {date}</p>
                 <p><strong>Timezone: </strong> {timezone}</p>
 
-                <button onClick={() => unregister(uid, mid, token)}>Unregister meeting</button>
+                {uid === organizer ? (
+                    <button onClick={() => deleteMeeting(uid, mid, token)}>Delete meeting</button>
+                ) : (
+                    <button onClick={() => unregister(uid, mid, token)}>Unregister meeting</button>
+                )}
             </div>
         </>
     )
@@ -25,7 +29,8 @@ Meeting.propTypes = {
     timezone: PropTypes.string.isRequired,
     uid: PropTypes.string.isRequired,
     token: PropTypes.string.isRequired,
-    unregister: PropTypes.func.isRequired
+    unregister: PropTypes.func.isRequired,
+    deleteMeeting: PropTypes.func.isRequired
 };
 
 export default Meeting;

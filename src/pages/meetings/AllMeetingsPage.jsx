@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
-import { allMeetings, unregisterMeeting } from "../../services/apiService.js";
+import { allMeetings, unregisterMeeting, removeMeeting } from "../../services/apiService.js";
 import ReturnButton from '../../components/ReturnButton.jsx'; 
 import { useState, useEffect } from "react";
 import { useAuth } from "../../hooks/useAuth.jsx";
@@ -15,7 +15,7 @@ const AllMeetingsPage = ({ backTo }) => {
     const fetchData = async () => {
         try {
             const data = await allMeetings(uID, token);
-            console.log(data);
+
             setMeetingsData(data);
         } catch (err) {
             setError(err);
@@ -24,12 +24,24 @@ const AllMeetingsPage = ({ backTo }) => {
 
     const unregister = async (uid, mid, token) => {
         try {
-            const response = await unregisterMeeting(uid, mid, token);
-            console.log(response);
+            await unregisterMeeting(uid, mid, token);
 
             fetchData();
         } catch (err) {
             console.error('Error:', err);
+
+            setError(err);
+        }
+    }
+
+    const deleteMeeting = async (uid, mid, token) => {
+        try {
+            await removeMeeting(uid, mid, token);
+
+            fetchData();
+        } catch (err) {
+            console.error('Error:', err);
+
             setError(err);
         }
     }
@@ -37,7 +49,6 @@ const AllMeetingsPage = ({ backTo }) => {
     useEffect(() => {
         fetchData();
     }, [uID, token]);
-
 
     return (
         <>
@@ -59,6 +70,7 @@ const AllMeetingsPage = ({ backTo }) => {
                     uid={uID}
                     token={token}
                     unregister={unregister}
+                    deleteMeeting={deleteMeeting}
                 />
             ))}
 

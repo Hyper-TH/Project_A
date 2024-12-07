@@ -73,7 +73,6 @@ export const postMeeting = async (endpoint, meetingData, token, options = {}) =>
 
 export const putAttendees = async (endpoint, token, options = {}) => {
     try {
-        console.log(token);
         const response = await fetch(`${API}${endpoint}`, {
             method: 'PUT',
             headers: {
@@ -90,6 +89,28 @@ export const putAttendees = async (endpoint, token, options = {}) => {
         return await response.json();
     } catch (err) {
         console.error(`Error posting data to ${API}${endpoint}`, err);
+
+        throw err;
+    }
+}
+
+export const deleteMeeting = async (endpoint, token, options = {}) => {
+    try {
+        const response = await fetch(`${API}${endpoint}`, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            },
+            ...options
+        });
+
+        if (!response.ok) {
+            throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+
+    } catch (err) {
+        console.error(`Error deleting data to ${API}${endpoint}`, err);
 
         throw err;
     }
