@@ -10,14 +10,14 @@ import Meeting from "../../components/props/Meeting.jsx";
 
 const AllMeetingsPage = ({ backTo }) => {
     const { uID, token } = useAuth();
-    const { timezone } = useTimezone();
+    const { timezone, calculateOffset } = useTimezone();
     const [meetingsData, setMeetingsData] = useState([]);
     const [error, setError] = useState(null);
 
     const fetchData = async () => {
         try {
             const data = await allMeetings(uID, token);
-
+            console.log(data);
             setMeetingsData(data);
         } catch (err) {
             setError(err);
@@ -48,6 +48,11 @@ const AllMeetingsPage = ({ backTo }) => {
         }
     }
 
+    const adjustMeetingDate = (date, offset) => {
+        const parsedDate = new Date(date); // Parse ISO date
+        return calculateOffset(parsedDate, offset).toLocaleString(); // Convert and format
+    };
+
     useEffect(() => {
         fetchData();
     }, [uID, token]);
@@ -67,7 +72,7 @@ const AllMeetingsPage = ({ backTo }) => {
                     name={meeting.Name}
                     description={meeting.Description}
                     organizer={meeting.Organizer}
-                    date={meeting.Date}
+                    date={adjustMeetingDate(meeting.Date, timezone)}
                     timezone={meeting.Timezone}
                     uid={uID}
                     token={token}

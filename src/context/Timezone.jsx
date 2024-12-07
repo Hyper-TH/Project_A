@@ -5,10 +5,10 @@ import { useTimezone as useTimezoneHook } from "../hooks/useTimezone";
 const Timezone = createContext();
 
 export const TimezoneProvider = ({ children }) => {
-    const { timezone } = useTimezoneHook();
+    const { timezone, calculateOffset } = useTimezoneHook();
 
     return (
-        <TimezoneProvider.Provider value={{ timezone }}>
+        <TimezoneProvider.Provider value={{ timezone, calculateOffset }}>
             {children}
         </TimezoneProvider.Provider>
     )

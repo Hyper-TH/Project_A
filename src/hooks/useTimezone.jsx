@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 
 export const useTimezone = () => {
     const [timezone, setTimezone] = useState('');
@@ -14,5 +14,22 @@ export const useTimezone = () => {
         setTimezone(formattedOffset);
     }, []);
 
-    return { timezone };
+
+    const calculateOffset = useCallback((date, timezoneOffset) => {
+        const inputDate = new Date(date); 
+
+        // Parse the timezoneOffset string (e.g., "+05:30" or "-08:00")
+        const [sign, hours, minutes] = timezoneOffset.match(/([+-])(\d{2}):(\d{2})/).slice(1);
+        const offsetInMinutes = (parseInt(hours, 10) * 60 + parseInt(minutes, 10)) * (sign === '+' ? 1 : -1);
+
+        const systemOffset = inputDate.getTimezoneOffset();
+
+        const adjustedTime = new Date(
+            inputDate.getTime() - (offsetInMinutes - systemOffset) * 60 * 1000
+        );
+
+        return adjustedTime;
+    }, []);
+
+    return { timezone, calculateOffset };
 };

@@ -7,8 +7,8 @@ const Meeting = ({ mid, name, organizer, description, date, timezone, uid, unreg
                 <h2>{name}</h2>
                 <p><strong>Organizer: </strong> {organizer}</p>
                 <p><strong>Description: </strong> {description}</p>
-                <p><strong>Date: </strong> {date}</p>
-                <p><strong>Timezone: </strong> {timezone}</p>
+                <p><strong>Date (Your timezone): </strong> {date}</p>
+                <p><strong>Organizer Timezone: </strong> {timezone}</p>
 
                 {uid === organizer ? (
                     <button onClick={() => deleteMeeting(uid, mid, token)}>Delete meeting</button>

@@ -11,6 +11,7 @@ const AddMeetingForm = () => {
     const { timezone } = useTimezone();
     const [error, setError] = useState(null);
     const [date, setDate] = useState(new Date());
+    const [time, setTime] = useState("12:00"); // Default time as HH:mm
     const [darkMode, setDarkMode] = useState(false);
     const [meetingData, setMeetingData] = useState({
         Name: '',
@@ -39,12 +40,27 @@ const AddMeetingForm = () => {
         }));
     };
 
-    const onChange = (newDate) => {
+    const handleDateChange = (newDate) => {
         setDate(newDate);
+        updateMeetingDate(newDate, time); // Combine date and time
+    };
+
+    const handleTimeChange = (e) => {
+        setTime(e.target.value);
+        updateMeetingDate(date, e.target.value); // Combine date and time
+    };
+
+    const updateMeetingDate = (selectedDate, selectedTime) => {
+        const [hours, minutes] = selectedTime.split(":");
+        const updatedDate = new Date(selectedDate);
+        updatedDate.setHours(parseInt(hours, 10));
+        updatedDate.setMinutes(parseInt(minutes, 10));
+
         setMeetingData((prevMeeting) => ({
             ...prevMeeting,
-            Date: newDate.toISOString(), // Use ISO string for backend compatibility
+            Date: updatedDate.toISOString(), // ISO format for backend
         }));
+
     };
 
     const toggle = () => {
@@ -105,7 +121,18 @@ const AddMeetingForm = () => {
                                     Toggle {darkMode ? 'Light' : 'Dark'} Mode
                                 </button>
 
-                                <Calendar onChange={onChange} value={date} />
+                                <Calendar onChange={handleDateChange} value={date} />
+                            </div>
+
+                            <div>
+                                <label htmlFor="time">Time:</label>
+                                <input
+                                    id="time"
+                                    type="time"
+                                    value={time}
+                                    onChange={handleTimeChange}
+                                    required
+                                />
                             </div>
 
                             <div>
