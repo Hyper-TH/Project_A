@@ -33,6 +33,11 @@ const AppRoutes = () => (
             path="/addMeeting"
             element={<ProtectedRoute element={<Pages.AddMeetingPage backTo="/home" />} />}
         />
+
+        <Route
+            path="/addAvailability"
+            element={<ProtectedRoute element={<Pages.AddAvailabilityPage backTo="/home" />} />}
+        />
     </Routes>
 );
 
