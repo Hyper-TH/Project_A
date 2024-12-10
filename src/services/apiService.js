@@ -14,3 +14,6 @@ export const unregisterMeeting = async (uid, mid, token) =>
 
 export const removeMeeting = async (uid, mid, token) => 
     Data.deleteMeeting(`/meeting/${uid}/${mid}`, token);
+
+export const createAvailability = async (availability, token) =>
+    Data.postAvailability(`/availability`, availability, token);
