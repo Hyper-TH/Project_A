@@ -15,6 +15,10 @@ const NavigationBar = () => {
                 Add a meeting
             </Link>
 
+            <Link to="/allAvailabilities" className="btn_collection_middle">
+                Check all availabilities
+            </Link>
+
             <Link to="/addAvailability" className="btn_collection_bottom">
                 Add an availability
             </Link>

@@ -82,7 +82,6 @@ const AllMeetingsPage = ({ backTo }) => {
             ))}
 
             {error && <Error error={error} />}
-
         </>
     )
 };
