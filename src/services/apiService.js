@@ -1,3 +1,4 @@
+// TODO: Add a validation before calling fetchData
 import * as Data from './fetchData';
 
 export const allMeetings = async (uid, token) => 
@@ -20,3 +21,8 @@ export const allAvailabilities = async (uid, token) =>
 
 export const createAvailability = async (availability, token) =>
     Data.postAvailability(`/availability`, availability, token);
+
+export const createGroup = async (group, token) =>
+    Data.postGroup(`/group`, group, token);
+
+  

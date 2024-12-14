@@ -163,3 +163,27 @@ export const postAvailability = async (endpoint, availabilityData, token, option
         throw err;
     }
 }
+
+export const postGroup = async (endpoint, groupData, token, options = {}) => {
+    try {
+        const response = await fetch(`${AV_API}${endpoint}`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            },
+            body: JSON.stringify(groupData),
+            ...options
+        });
+
+        if (!response.ok) {
+            throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+
+        return await response.json();
+    } catch (err) {
+        console.error(`Error posting data to ${AV_API}${endpoint}`, err);
+
+        throw err;
+    }
+}

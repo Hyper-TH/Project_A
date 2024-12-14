@@ -19,6 +19,10 @@ const NavigationBar = () => {
                 Check all availabilities
             </Link>
 
+            <Link to="/createGroup" className="btn_collection_middle">
+                Create Group
+            </Link>
+
             <Link to="/addAvailability" className="btn_collection_bottom">
                 Add an availability
             </Link>
