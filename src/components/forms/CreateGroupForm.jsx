@@ -19,6 +19,7 @@ const CreateGroupForm = () => {
             setGroupData((prevData) => ({
                 ...prevData,
                 Organizer: uID,
+                Users: [uID]
             }))
         }
     }, [uID, token]);
@@ -35,11 +36,13 @@ const CreateGroupForm = () => {
     }
 
     const handleRemoveUser = (index) => {
-        setGroupData((prevData) => ({
-            ...prevData,
-            Users: prevData.Users.filter((_, i) => i !== index),
-        }));
-    }
+        if (index !== 0) { 
+            setGroupData((prev) => ({
+                ...prev,
+                Users: prev.Users.filter((_, i) => i !== index),
+            }));
+        }
+    };
 
     const handleChange = async (e) => {
         const { name, value } = e.target;
@@ -120,9 +123,11 @@ const CreateGroupForm = () => {
                                 {groupData.Users.map((user, index) => (
                                     <li key={index}>
                                         {user}{' '}
-                                        <button type="button" onClick={() => handleRemoveUser(index)}>
-                                            Remove
-                                        </button>
+                                        {index !== 0 && (
+                                            <button type="button" onClick={() => handleRemoveUser(index)}>
+                                                Remove
+                                            </button>
+                                        )}
                                     </li>
                                 ))}
                             </ul>
