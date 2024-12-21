@@ -17,7 +17,7 @@ const AddMeetingForm = () => {
         Name: '',
         Organizer: '',
         Description: '',
-        Date: '',
+        DateTime: '',
         Timezone: '',
     });
 
@@ -56,11 +56,14 @@ const AddMeetingForm = () => {
         updatedDate.setHours(parseInt(hours, 10));
         updatedDate.setMinutes(parseInt(minutes, 10));
 
+        console.log(updatedDate.toISOString());
+
         setMeetingData((prevMeeting) => ({
             ...prevMeeting,
-            Date: updatedDate.toISOString(), // ISO format for backend
+            DateTime: updatedDate.toISOString(), // ISO format for backend
         }));
 
+        console.log(meetingData.DateTime);
     };
 
     const toggle = () => {

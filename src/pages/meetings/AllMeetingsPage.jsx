@@ -72,7 +72,7 @@ const AllMeetingsPage = ({ backTo }) => {
                     name={meeting.Name}
                     description={meeting.Description}
                     organizer={meeting.Organizer}
-                    date={adjustMeetingDate(meeting.Date, timezone)}
+                    date={adjustMeetingDate(meeting.DateTime, timezone)}
                     timezone={meeting.Timezone}
                     uid={uID}
                     token={token}
