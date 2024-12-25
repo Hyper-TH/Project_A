@@ -19,6 +19,9 @@ export const removeMeeting = async (uid, mid, token) =>
 export const allAvailabilities = async (uid, token) =>
     Data.getAvailabilities(`/availabilities/${uid}`, token);
 
+export const allGroups = async (uid, token) =>
+    Data.getGroups(`/groups/${uid}`, token);
+
 export const createAvailability = async (availability, token) =>
     Data.postAvailability(`/availability`, availability, token);
 

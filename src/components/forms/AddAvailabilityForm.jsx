@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useAuth } from '../../hooks/useAuth.jsx';
 import { useTimezone } from '../../hooks/useTimezone.jsx';
-import { createAvailability } from '../../services/apiService.js';
+import { createAvailability, allGroups } from '../../services/apiService.js';
 import Error from '../props/Error.jsx';
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
@@ -13,8 +13,11 @@ const AddAvailabilityForm = () => {
     const [date, setDate] = useState(new Date());
     const [startTime, setStartTime] = useState("12:00");
     const [endTime, setEndTime] = useState("12:00");
+    const [selectedGroup, setSelectedGroup] = useState("");
+    const [userGroups, setUserGroups] = useState([]);
     const [availabilityData, setAvailabilityData] = useState({
         uID: '',
+        gID: '',
         Date: '',
         StartTime: '',
         EndTime: '',
@@ -22,7 +25,19 @@ const AddAvailabilityForm = () => {
     });
     const [darkMode, setDarkMode] = useState(false);
 
+    const fetchData = async () => {
+        try {
+            const data = await allGroups(uID, token);
+            console.log(data);
+            setUserGroups(data);
+        } catch (err) {
+            setError(err);
+        }
+    };
+
     useEffect(() => {
+        fetchData();
+
         if (uID && token) {
             setAvailabilityData((prevData) => ({
                 ...prevData,
@@ -32,9 +47,17 @@ const AddAvailabilityForm = () => {
         }
     }, [uID, timezone, token]);
 
+    const handleChange = async (e) => {
+        const { name, value } = e.target;
+
+        setAvailabilityData((prevAvail) => ({
+            ...prevAvail,
+            [name]: value
+        }));
+
+    };
     const handleDateChange = async (newDate) => {
         setDate(newDate);
-
 
         setAvailabilityData((prevMeeting) => ({
             ...prevMeeting,
@@ -57,6 +80,17 @@ const AddAvailabilityForm = () => {
         setAvailabilityData((prevMeeting) => ({
             ...prevMeeting,
             EndTime: e.target.value
+        }));
+    };
+
+    const handleGroupSelect = (e) => {
+        const selected = e.target.value;
+        const selectedGroupData = userGroups.find(group => group.name === selected);
+        setSelectedGroup(selected);
+
+        setAvailabilityData((prev) => ({
+            ...prev,
+            gID: selectedGroupData ? selectedGroupData.gID : ''
         }));
     };
 
@@ -93,6 +127,20 @@ const AddAvailabilityForm = () => {
                                 </button>
 
                                 <Calendar onChange={handleDateChange} value={date} />
+                            </div>
+
+                            <div>
+                                <label>
+                                    Name:
+                                    <select value={selectedGroup} onChange={handleGroupSelect}>
+                                        <option value="">Select a group</option>
+                                        {userGroups.map((group) => (
+                                            <option key={group.gID} value={group.name}>
+                                                {group.name}
+                                            </option>
+                                        ))}
+                                    </select>
+                                </label>
                             </div>
 
                             <div>
