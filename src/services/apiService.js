@@ -22,6 +22,9 @@ export const allAvailabilities = async (uid, token) =>
 export const allGroups = async (uid, token) =>
     Data.getGroups(`/groups/${uid}`, token);
 
+export const joinGroup = async (uid, gid, token) =>
+    Data.putGroup(`/group/${uid}/${gid}`, token);
+
 export const createAvailability = async (availability, token) =>
     Data.postAvailability(`/availability`, availability, token);
 

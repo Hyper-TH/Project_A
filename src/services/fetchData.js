@@ -163,6 +163,28 @@ export const getGroups = async (endpoint, token, options = {}) => {
     }
 }
 
+export const putGroup = async (endpoint, token, options = {}) => {
+    try {
+        const response = await fetch(`${AV_API}${endpoint}`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+                //'Authorization': `Bearer ${token}`
+            },
+            ...options
+        });
+
+        if (!response.ok) {
+            throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+
+        return await response.json();
+    } catch (err) {
+        console.error(`Error getting data from ${AV_API}${endpoint}`, err);
+
+        throw err;
+    }
+}
 
 export const postAvailability = async (endpoint, availabilityData, token, options = {}) => {
     try {

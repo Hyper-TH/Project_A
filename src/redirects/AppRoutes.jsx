@@ -43,6 +43,11 @@ const AppRoutes = () => (
             path="/allAvailabilities"
             element={<ProtectedRoute element={<Pages.AllAvailabilitiesPage backTo="/home" />} />}
         />
+        
+        <Route
+            path="/allGroups"
+            element={<ProtectedRoute element={<Pages.AllGroupsPage backTo="/home" />} />}
+        />
 
         <Route
             path="/addAvailability"

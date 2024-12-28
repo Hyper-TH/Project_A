@@ -28,7 +28,6 @@ const AddAvailabilityForm = () => {
     const fetchData = async () => {
         try {
             const data = await allGroups(uID, token);
-            console.log(data);
             setUserGroups(data);
         } catch (err) {
             setError(err);
@@ -47,15 +46,6 @@ const AddAvailabilityForm = () => {
         }
     }, [uID, timezone, token]);
 
-    const handleChange = async (e) => {
-        const { name, value } = e.target;
-
-        setAvailabilityData((prevAvail) => ({
-            ...prevAvail,
-            [name]: value
-        }));
-
-    };
     const handleDateChange = async (newDate) => {
         setDate(newDate);
 
@@ -85,12 +75,11 @@ const AddAvailabilityForm = () => {
 
     const handleGroupSelect = (e) => {
         const selected = e.target.value;
-        const selectedGroupData = userGroups.find(group => group.name === selected);
-        setSelectedGroup(selected);
+        setSelectedGroup(selected)
 
         setAvailabilityData((prev) => ({
             ...prev,
-            gID: selectedGroupData ? selectedGroupData.gID : ''
+            gID: selected
         }));
     };
 
@@ -134,11 +123,13 @@ const AddAvailabilityForm = () => {
                                     Name:
                                     <select value={selectedGroup} onChange={handleGroupSelect}>
                                         <option value="">Select a group</option>
+
                                         {userGroups.map((group) => (
-                                            <option key={group.gID} value={group.name}>
-                                                {group.name}
+                                            <option key={group.gID} value={group.gID}>
+                                                {group.Name}
                                             </option>
                                         ))}
+
                                     </select>
                                 </label>
                             </div>
